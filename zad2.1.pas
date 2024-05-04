@@ -1,11 +1,15 @@
 ﻿program T1;
-
+// В данном коде используется динамическая структура данных связанного списка. 
+//Особенностью связанного списка является то, 
+//что каждый узел содержит указатель на следующий узел, что позволяет 
+//эффективно добавлять и удалять элементы.
 type
   PNode = ^Node;
   Node = record
-    _Word: string;
-    Counter: integer;
-    Next: PNode;
+    //состав узла структуры
+    _Word: string; //поле для хранения слова
+    Counter: integer; //поле для хранения количества встречающихся слов
+    Next: PNode; //указатель на следующий узел списка
   end;
 
 var
@@ -14,7 +18,7 @@ var
   w: string;
   f: text;
 
-function GetWord(f: text): string;
+function GetWord(f: text): string; //функция для чтения слов из файла
 var
   c: char;
 begin
@@ -29,7 +33,7 @@ begin
   end;
 end;
 
-function Find(Head: PNode; NewWord: string): PNode;
+function Find(Head: PNode; NewWord: string): PNode; //функция поиска узла в списке по заданному слову
 var
   q: PNode;
 begin
@@ -39,7 +43,7 @@ begin
   Result := q;
 end;
 
-function CreateNode(NewWord: string): PNode;
+function CreateNode(NewWord: string): PNode; //функция для создания нового узла с заданным словом
 var
   NewNode: PNode;
 begin
@@ -50,7 +54,7 @@ begin
   Result := NewNode;
 end;
 
-function FindPlace(Head: PNode; NewWord: string): PNode;
+function FindPlace(Head: PNode; NewWord: string): PNode;//функция для нахождения места вставки нового узла в 
 var
   q: PNode;
 begin
@@ -60,19 +64,19 @@ begin
   Result := q;
 end;
 
-procedure AddFirst(var Head: PNode; NewNode: PNode);
+procedure AddFirst(var Head: PNode; NewNode: PNode);//процедура для добавления нового узла в начало списка
 begin
   NewNode^.Next := Head;
   Head := NewNode;
 end;
 
-procedure AddAfter(p, NewNode: PNode);
+procedure AddAfter(p, NewNode: PNode);// процедура для добавления нового узла после определенного узла
 begin
   NewNode^.Next := p^.Next;
   p^.Next := NewNode;
 end;
 
-procedure AddBefore(var Head: PNode; p, NewNode: PNode);
+procedure AddBefore(var Head: PNode; p, NewNode: PNode);//процедура для добавления нового узла перед определенным узлом
 var
   q: PNode;
 begin
